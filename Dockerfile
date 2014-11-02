@@ -1,4 +1,4 @@
-FROM phusion/baseimage:latest
+FROM marklee77/ubuntu-trusty-vagrantbox:latest
 MAINTAINER Mark Stillwell <mark@stillwell.me>
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -11,15 +11,19 @@ RUN apt-get update && \
       gettext \
       git \
       libncurses5-dev \
+      python \
       subversion \ 
+      unzip \
+      wget \
       zlib1g-dev && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
-ENV HOME /root
-WORKDIR /root
+WORKDIR /home/vagrant
+ENV HOME /home/vagrant
+USER vagrant
 RUN git clone git://git.openwrt.org/14.07/openwrt.git
-#RUN cd openwrt && \
-#    ./scripts/feeds update -a  && \
-#    ./scripts/feeds install -a && \
-#    make defconfig && \
-#    make prereq
+RUN cd openwrt && \
+    ./scripts/feeds update -a  && \
+    ./scripts/feeds install -a && \
+    make defconfig && \
+    make prereq
