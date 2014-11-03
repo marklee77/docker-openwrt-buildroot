@@ -27,3 +27,4 @@ RUN cd openwrt && \
     ./scripts/feeds install -a && \
     make defconfig && \
     make prereq
+USER root
